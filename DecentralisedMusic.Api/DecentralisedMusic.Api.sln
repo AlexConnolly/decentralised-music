@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecentralisedMusic.Api", "DecentralisedMusic.Api.csproj", "{B0DDC714-2397-4AA1-BB31-6CE5F1C3806D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0DDC714-2397-4AA1-BB31-6CE5F1C3806D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0DDC714-2397-4AA1-BB31-6CE5F1C3806D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0DDC714-2397-4AA1-BB31-6CE5F1C3806D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0DDC714-2397-4AA1-BB31-6CE5F1C3806D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E10F42F-A5EF-4D48-8CFC-FA2B52E5E2CA}
+	EndGlobalSection
+EndGlobal

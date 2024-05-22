@@ -1,0 +1,6 @@
+@DecentralisedMusic.Api_HostAddress = http://localhost:5051
+
+GET {{DecentralisedMusic.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
