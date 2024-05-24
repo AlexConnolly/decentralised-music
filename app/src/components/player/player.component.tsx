@@ -21,9 +21,19 @@ export function PlayerComponent() {
             }
 
             musicApiService.getTrackStream(track.TrackId).then(streamUrl => {
-                const audio = new Audio(streamUrl);
-                audio.play();
-                setState({ currentAudio: audio, currentTrack: track});
+
+                setState((prevState) => {
+
+                    // Kill the previous audio element
+                    prevState.currentAudio.pause();
+                    prevState.currentAudio.src = "";
+
+                    // Create a new audio element
+                    const audio = new Audio(streamUrl);
+                    audio.play();
+
+                    return { currentAudio: audio, currentTrack: track };
+                });
             });
         },
         [musicApiService]
@@ -52,17 +62,18 @@ export function PlayerComponent() {
 
     return (
         <div className="w-full h-16 bg-slate-950">
+
             {state.currentTrack && (
                 <div className="text-white px-4 flex flex-row w-full">
                     <div className="flex flex-col justify-center content-center items-center">
                         {
                             state.currentAudio.paused ? (
-                                <button className="bg-purple-600 text-white h-10 w-10 rounded-full flex flex-row justify-center content-center items-center" onClick={() => state.currentAudio.play()}>
+                                <button className="shadow-xl bg-purple-600 text-white h-10 w-10 rounded-full flex flex-row justify-center content-center items-center" onClick={() => state.currentAudio.play()}>
                                     <i className="gg-play-button-o"></i>
                                     
                                 </button>
                             ) : (
-                                <button className="bg-purple-600 text-white h-10 w-10 rounded-full flex flex-row justify-center content-center items-center" onClick={() => state.currentAudio.pause()}>
+                                <button className="shadow-xl bg-purple-600 text-white h-10 w-10 rounded-full flex flex-row justify-center content-center items-center" onClick={() => state.currentAudio.pause()}>
                                     <i className="gg-play-pause-o"></i>
                                 </button>
                             )
@@ -73,11 +84,11 @@ export function PlayerComponent() {
                         <img src={state.currentTrack.ImageUrl} className="mt-2 w-12 h-12 bg-gray-200 rounded" alt="Track Thumbnail" />
                         <div className="ml-4 w-full">
                             <div className="w-full flex flex-row">
-                                <div className="flex-1">{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></div>
+                                <div className="flex-1 text-slate-400">{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></div>
                                 <div className="text-slate-600">{formatTime(state.currentAudio.currentTime)} / {formatTime(state.currentAudio.duration)}</div>
                             </div>
                             
-                            <div className="h-2 rounded-full w-full bg-gray-100" onMouseDown={
+                            <div className="cursor-pointer h-2 rounded-full w-full bg-gray-100 shadow-xl shadow-blue-500/50" onMouseDown={
                                 (e) => {
                                     const rect = e.currentTarget.getBoundingClientRect();
                                     const x = e.clientX - rect.left;
