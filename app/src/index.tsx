@@ -4,14 +4,18 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { App } from './App';
 import { TrackProvider } from './providers/TrackContext';
+import { ModalManagerProvider } from './components/core/modal/ModalManagerProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+  <ModalManagerProvider>
   <TrackProvider>
-      <App />
+        <App />
     </TrackProvider>
+  </ModalManagerProvider>
+  
 );
 
 // If you want to start measuring performance in your app, pass a function

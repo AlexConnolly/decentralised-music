@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import MusicApiService, { Track } from "../../services/api/MusicApiService";
 import { useTrack } from "../../providers/TrackContext";
+import { useModal } from "../core/modal/ModalManagerProvider";
 
 interface PlayerComponentState {
     currentAudio: HTMLAudioElement;
@@ -60,6 +61,21 @@ export function PlayerComponent() {
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
 
+    const { setCurrentModal, closeCurrentModal } = useModal();
+
+    const openModal = () => {
+      setCurrentModal({
+        title: "Example Modal",
+        content: <div>This is an example modal</div>,
+        button: {
+            text: "Close",
+            onClick: () => {
+                closeCurrentModal();
+            }
+        }
+      });
+    };
+
     return (
         <div className="w-full h-20 bg-slate-200 border-t-2 border-t-gray-300 flex flex-col justify-center content-center items-center">
 
@@ -86,7 +102,9 @@ export function PlayerComponent() {
                             <div className="w-full flex flex-row">
                                 <div className="flex-1 text-slate-800">{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></div>
                                 <div className="flex flex-row mr-3">
-                                    <button className="bg-gray-400 shadow text-white w-8 h-8 mr-3 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
+                                    <button className="bg-gray-400 shadow text-white w-8 h-8 mr-3 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center" onClick={() => {
+                                        openModal();
+                                    }}>
                                         <i className="gg-play-list-add"></i>
                                     </button>
                                     <button className="bg-red-500 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
