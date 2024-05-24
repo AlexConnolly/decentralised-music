@@ -44,6 +44,12 @@ export function PlayerComponent() {
         return () => unsubscribe();
     }, [handleTrackChange, subscribeToTrackChanges]);
 
+    function formatTime(seconds: number) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
     return (
         <div className="w-full h-16 bg-slate-950">
             {state.currentTrack && (
@@ -66,7 +72,11 @@ export function PlayerComponent() {
                     <div className="flex flex-row items-center ml-4 flex-1">
                         <img src={state.currentTrack.ImageUrl} className="mt-2 w-12 h-12 bg-gray-200 rounded" alt="Track Thumbnail" />
                         <div className="ml-4 w-full">
-                            <div>{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></div>
+                            <div className="w-full flex flex-row">
+                                <div className="flex-1">{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></div>
+                                <div className="text-slate-600">{formatTime(state.currentAudio.currentTime)} / {formatTime(state.currentAudio.duration)}</div>
+                            </div>
+                            
                             <div className="h-2 rounded-full w-full bg-gray-100" onMouseDown={
                                 (e) => {
                                     const rect = e.currentTarget.getBoundingClientRect();
