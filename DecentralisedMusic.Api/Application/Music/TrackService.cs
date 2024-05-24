@@ -25,7 +25,7 @@ namespace DecentralisedMusic.Api.Application.Music
         private readonly FileSystemWatcher _fileWatcher;
         private bool _isCacheValid; 
         
-        private static readonly Lazy<TrackService> _instance = new Lazy<TrackService>(() => new TrackService(Path.Combine(Directory.GetCurrentDirectory(), "Files")));
+        private static readonly Lazy<TrackService> _instance = new Lazy<TrackService>(() => new TrackService("C:\\Users\\AlexConnolly\\Downloads"));
         
         public static TrackService Instance => _instance.Value;
 
@@ -53,7 +53,7 @@ namespace DecentralisedMusic.Api.Application.Music
         {
             _tracks.Clear();
 
-            foreach (var filePath in Directory.GetFiles(_tracksPath, "*.mp3"))
+            foreach (var filePath in Directory.GetFiles(_tracksPath, "*.mp3", SearchOption.AllDirectories))
             {
                 AddTrack(filePath);
             }

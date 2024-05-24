@@ -9,7 +9,7 @@ namespace DecentralisedMusic.Api.Controllers
     [ApiController]
     public class MusicController : ControllerBase
     {
-        private readonly string _tracksPath = Path.Combine(Directory.GetCurrentDirectory(), "Files");
+        private readonly string _tracksPath = "C:\\Users\\AlexConnolly\\Downloads";
 
         [HttpGet("{trackId}/stream")]
         public IActionResult StreamTrack(string trackId)

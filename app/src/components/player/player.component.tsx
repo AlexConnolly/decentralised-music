@@ -85,6 +85,14 @@ export function PlayerComponent() {
                         <div className="ml-4 w-full">
                             <div className="w-full flex flex-row">
                                 <div className="flex-1 text-slate-800">{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></div>
+                                <div className="flex flex-row mr-3">
+                                    <button className="bg-gray-400 shadow text-white w-8 h-8 mr-3 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
+                                        <i className="gg-play-list-add"></i>
+                                    </button>
+                                    <button className="bg-red-500 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
+                                        <i className="gg-heart"></i>
+                                    </button>
+                                </div>
                                 <div className="text-slate-600">{formatTime(state.currentAudio.currentTime)} / {formatTime(state.currentAudio.duration)}</div>
                             </div>
                             

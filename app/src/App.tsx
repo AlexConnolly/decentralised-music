@@ -24,7 +24,14 @@ export function App() {
     return (
         <div className="w-full h-full bg-gray-100 flex flex-col">
             <div className="flex flex-row flex-1">
-                <div className="w-16 h-full bg-slate-950"></div>
+                <div className="w-16 h-full bg-slate-950">
+                    <div className="w-16 h-16 bg-slate-900 flex justify-center content-center items-center">
+                        <i className="gg-music text-white"></i>
+                    </div>
+                    <div className="w-16 h-16 bg-slate-950 flex justify-center content-center items-center">
+                        <i className="gg-layout-list text-white"></i>
+                    </div>
+                </div>
                 <div className="flex-1 h-full bg-gray-100 flex flex-col">
                     <div className="bg-gray-200 w-full shadow-xl p-4">
                         <input
