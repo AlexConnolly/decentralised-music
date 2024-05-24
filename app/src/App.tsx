@@ -24,7 +24,7 @@ export function App() {
     return (
         <div className="w-full h-full bg-gray-100 flex flex-col">
             <div className="flex flex-row flex-1">
-                <div className="w-16 h-full bg-slate-950">
+                <div className="w-16 h-full bg-slate-950 hidden">
                     <div className="w-16 h-16 bg-slate-900 flex justify-center content-center items-center">
                         <i className="gg-music text-white"></i>
                     </div>
@@ -32,7 +32,7 @@ export function App() {
                         <i className="gg-layout-list text-white"></i>
                     </div>
                 </div>
-                <div className="flex-1 h-full bg-gray-100 flex flex-col">
+                <div className="flex-grow h-full bg-gray-100 flex flex-col">
                     <div className="bg-gray-200 w-full shadow-xl p-4">
                         <input
                             type="text"
@@ -40,7 +40,7 @@ export function App() {
                             placeholder="Search for music"
                         />
                     </div>
-                    <div className="p-4 flex-1">
+                    <div className="flex-grow">
                         <div className="bg-white rounded w-full shadow p-4">
                             <table className="w-full">
                                 <thead>

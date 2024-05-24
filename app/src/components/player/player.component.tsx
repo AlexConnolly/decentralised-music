@@ -77,7 +77,7 @@ export function PlayerComponent() {
     };
 
     return (
-        <div className="w-full h-20 bg-slate-200 border-t-2 border-t-gray-300 flex flex-col justify-center content-center items-center">
+        <div className="w-full h-24 bg-slate-200 border-t-2 border-t-gray-300 flex flex-col justify-center content-center items-center">
 
             {state.currentTrack && (
                 <div className="text-white px-4 flex flex-row w-full">
@@ -96,30 +96,39 @@ export function PlayerComponent() {
                         }
                     </div>
 
-                    <div className="flex flex-row items-center ml-4 flex-1">
-                        <img src={state.currentTrack.ImageUrl} className="mt-2 w-12 h-12 bg-slate-400 shadow-lg rounded" alt="Track Thumbnail" />
-                        <div className="ml-4 w-full">
+                    <div className="flex flex-row items-center ml-2 flex-1">
+                        <img src={state.currentTrack.ImageUrl} className="hidden mt-2 w-12 h-12 bg-slate-400 shadow-lg rounded" alt="Track Thumbnail" />
+                        <div className="ml-3 w-full">
                             <div className="w-full flex flex-row">
-                                <div className="flex-1 text-slate-800">{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></div>
-                                <div className="flex flex-row mr-3">
-                                    <button className="bg-gray-400 shadow text-white w-8 h-8 mr-3 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center" onClick={() => {
-                                        openModal();
-                                    }}>
-                                        <i className="gg-play-list-add"></i>
-                                    </button>
-                                    <button className="bg-red-500 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
-                                        <i className="gg-heart"></i>
-                                    </button>
+                                <div className="flex-grow text-slate-800">
+                                    <span className="font-semibold">{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></span>
+                                    <div className="text-slate-600">{formatTime(state.currentAudio.currentTime)} / {formatTime(state.currentAudio.duration)}</div>
                                 </div>
-                                <div className="text-slate-600">{formatTime(state.currentAudio.currentTime)} / {formatTime(state.currentAudio.duration)}</div>
+                                <div className="flex flex-col items-center justify-center content-center">
+                                    <div className="flex flex-row">
+                                        <button className="bg-gray-400 shadow text-white w-8 h-8 mr-3 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center" onClick={() => {
+                                            openModal();
+                                        }}>
+                                            <i className="gg-play-list-add"></i>
+                                        </button>
+                                        <button className="bg-red-500 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
+                                            <i className="gg-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div className="cursor-pointer h-2 rounded-full w-full bg-slate-400 shadow-xl shadow-blue-500/50" onMouseDown={
+                            <div className="cursor-pointer h-2 mb-2 rounded-full w-full bg-slate-400 shadow-xl shadow-blue-500/50" onMouseDown={
                                 (e) => {
+                                    // Let the user drag the progress bar but also simply click on it to jump to a specific time
                                     const rect = e.currentTarget.getBoundingClientRect();
-                                    const x = e.clientX - rect.left;
-                                    const percentage = x / rect.width;
+
+                                    const clickX = e.clientX - rect.left;
+                                    const width = rect.width;
+                                    const percentage = clickX / width;
+
                                     state.currentAudio.currentTime = state.currentAudio.duration * percentage;
+                                    
                                 }
                             }>
                                 <div className="h-2 bg-purple-600 rounded-full mt-2" style={{ width: `${(state.currentAudio.currentTime / state.currentAudio.duration) * 100}%` }}></div>
