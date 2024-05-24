@@ -114,13 +114,13 @@ export function PlayerComponent() {
                     <div className="flex flex-col justify-center content-center items-center">
                         {
                             state.currentAudio.paused ? (
-                                <button className="shadow-xl bg-purple-600 text-white h-10 w-10 rounded-full flex flex-row justify-center content-center items-center" onClick={() => state.currentAudio.play()}>
-                                    <i className="gg-play-button-o"></i>
+                                <button className="shadow-xl bg-emerald-600 text-white h-10 w-10 rounded-full flex flex-row justify-center content-center items-center" onClick={() => state.currentAudio.play()}>
+                                    <i className="gg-play-button"></i>
                                     
                                 </button>
                             ) : (
-                                <button className="shadow-xl bg-purple-600 text-white h-10 w-10 rounded-full flex flex-row justify-center content-center items-center" onClick={() => state.currentAudio.pause()}>
-                                    <i className="gg-play-pause-o"></i>
+                                <button className="shadow-xl bg-emerald-600 text-white h-10 w-10 rounded-full flex flex-row justify-center content-center items-center" onClick={() => state.currentAudio.pause()}>
+                                    <i className="gg-play-pause"></i>
                                 </button>
                             )
                         }
@@ -141,14 +141,14 @@ export function PlayerComponent() {
                                         }}>
                                             <i className="gg-play-list-add"></i>
                                         </button>
-                                        <button className="bg-red-500 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
+                                        <button className="bg-emerald-500 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
                                             <i className="gg-heart"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div className="cursor-pointer h-2 mb-2 rounded-full w-full bg-slate-400 shadow-xl shadow-blue-500/50" onMouseDown={
+                            <div className="cursor-pointer h-2 mb-2 rounded-full w-full bg-slate-400 shadow-xl shadow-emerald-500/50" onMouseDown={
                                 (e) => {
                                     // Let the user drag the progress bar but also simply click on it to jump to a specific time
                                     const rect = e.currentTarget.getBoundingClientRect();
@@ -161,7 +161,7 @@ export function PlayerComponent() {
                                     
                                 }
                             }>
-                                <div className="h-2 bg-purple-600 rounded-full mt-2" style={{ width: `${(state.currentAudio.currentTime / state.currentAudio.duration) * 100}%` }}></div>
+                                <div className="h-2 bg-emerald-600 rounded-full mt-2" style={{ width: `${(state.currentAudio.currentTime / state.currentAudio.duration) * 100}%` }}></div>
                             </div>
                         </div>
                     </div>

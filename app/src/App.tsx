@@ -41,31 +41,32 @@ export function App() {
                         />
                     </div>
                     <div className="flex-grow">
-                        <div className="bg-white rounded w-full shadow p-4">
-                            <table className="w-full">
+                        <div className="bg-white rounded w-full shadow">
+                            <table className="w-full text-slate-600">
                                 <thead>
                                     <tr>
                                         <th></th>
                                         <th className="text-left">Title</th>
                                         <th className="text-left">Artist</th>
-                                        <th className="text-left">Album</th>
                                         <th className="text-left">Duration</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     {state.tracks.map((track, index) => (
                                         <tr key={track.TrackId} 
-                                        className={`p-3 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}`}>
+                                        className={`p-3 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}`} onDoubleClick={() => {
+                                            setCurrentTrack(track);
+                                        }}>
                                             <td
-                                                className="text-purple-600 font-bold text-center py-4 flex flex-row justify-center content-center items-center "
+                                                className="cursor-pointer text-emerald-800 font-bold text-center py-4 flex flex-row justify-center content-center items-center "
                                                 onClick={() => setCurrentTrack(track)}
                                             >
-                                                <i className="gg-play-button-o bg-purple-300"></i>
+                                                <i className="gg-play-button rounded-full shadow ml-2 bg-emerald-300"></i>
                                             </td>
-                                            <td className="p-3">{track.Title}</td>
+                                            <td className="p-3 w-full" onDoubleClick={() => {
+                                                setCurrentTrack(track);
+                                            }}>{track.Title}</td>
                                             <td>{track.Artist}</td>
-                                            <td>{track.Album}</td>
                                             <td>{track.Duration}</td>
                                         </tr>
                                     ))}
