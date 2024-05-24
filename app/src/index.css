@@ -1,3 +1,10 @@
+@import url("https://css.gg/css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body, html, #root {
+    height: 100vh;
+    width: 100vw;
+}
