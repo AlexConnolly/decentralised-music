@@ -14,6 +14,8 @@ namespace DecentralisedMusic.Api.Application.Music
         public string Album { get; set; }
         public string Artist { get; set; }
         public string Duration { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 
     public class TrackService
@@ -50,13 +52,14 @@ namespace DecentralisedMusic.Api.Application.Music
         private void LoadTracks()
         {
             _tracks.Clear();
+
             foreach (var filePath in Directory.GetFiles(_tracksPath, "*.mp3"))
             {
                 AddTrack(filePath);
             }
         }
 
-        private void AddTrack(string filePath)
+        private async void AddTrack(string filePath)
         {
             using (var mp3Stream = new FileStream(filePath, FileMode.Open))
             {
@@ -65,13 +68,27 @@ namespace DecentralisedMusic.Api.Application.Music
 
                 if (tag != null)
                 {
+                    string searchTerm = tag.Title == null ? "" : tag.Title;
+
                     _tracks.Add(new Track
                     {
                         TrackId = Path.GetFileNameWithoutExtension(filePath),
                         Title = tag.Title,
                         Album = tag.Album,
                         Artist = tag.Artists,
-                        Duration = mp3.Audio.Duration.ToString(@"mm\:ss")
+                        Duration = mp3.Audio.Duration.ToString(@"mm\:ss"),
+                        ImageUrl = await ImageSearchService.GetFirstImageUrlAsync(searchTerm)
+                    });
+                } else
+                {
+                    _tracks.Add(new Track()
+                    {
+                        TrackId = Path.GetFileNameWithoutExtension(filePath),
+                        Title = Path.GetFileNameWithoutExtension(filePath),
+                        Album = "",
+                        Artist = "",
+                        Duration = mp3.Audio.Duration.ToString(@"mm\:ss"),
+                        ImageUrl = await ImageSearchService.GetFirstImageUrlAsync(Path.GetFileNameWithoutExtension(filePath))
                     });
                 }
             }

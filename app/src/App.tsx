@@ -1,45 +1,25 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import MusicApiService, { Track } from "./services/api/MusicApiService";
 import { useTrack } from "./providers/TrackContext";
+import { PlayerComponent } from "./components/player/player.component";
 
 interface AppState {
     tracks: Track[];
+    currentAudio: HTMLAudioElement;
+    currentTrack: Track | null;
 }
 
 export function App() {
-    const { currentTrack, setCurrentTrack, subscribeToTrackChanges } = useTrack();
+    const { setCurrentTrack } = useTrack();
     const musicApiService = new MusicApiService();
 
-    const [state, setState] = React.useState<AppState>({ tracks: [] });
-
-    const currentAudio = useRef(new Audio());
+    const [state, setState] = React.useState<AppState>({ tracks: [], currentAudio: new Audio(), currentTrack: null});
 
     useEffect(() => {
         musicApiService.getTrackList().then(tracks => {
-            setState({ tracks: tracks });
+            setState({ tracks: tracks, currentAudio: state.currentAudio, currentTrack: state.currentTrack});
         });
     }, []);
-
-    const handleTrackChange = useCallback(
-        (track: Track | null) => {
-            if (track == null) {
-                return;
-            }
-
-            musicApiService.getTrackStream(track.TrackId).then(streamUrl => {
-                if (currentAudio.current.src !== streamUrl) {
-                    currentAudio.current.src = streamUrl;
-                    currentAudio.current.play();
-                }
-            });
-        },
-        [musicApiService]
-    );
-
-    useEffect(() => {
-        const unsubscribe = subscribeToTrackChanges(handleTrackChange);
-        return () => unsubscribe();
-    }, [handleTrackChange, subscribeToTrackChanges]);
 
     return (
         <div className="w-full h-full bg-gray-100 flex flex-col">
@@ -86,19 +66,8 @@ export function App() {
                     </div>
                 </div>
             </div>
-            <div className="w-full h-16 bg-slate-950">
-                {currentTrack && (
-                    <div className="text-white p-4">
-                        <div className="flex flex-row items-center">
-                            <img src="" className="w-16 h-16" alt="Track Thumbnail" />
-                            <div className="ml-4">
-                                <div>{currentTrack.Title}</div>
-                                <div>{currentTrack.Artist}</div>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </div>
+
+            <PlayerComponent></PlayerComponent>
         </div>
     );
 }

@@ -8,6 +8,7 @@ export interface Track {
     Album: string;
     Artist: string;
     Duration: string;
+    ImageUrl: string;
 }
 
 class MusicApiService {
