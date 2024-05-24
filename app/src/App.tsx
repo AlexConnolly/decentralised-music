@@ -53,10 +53,12 @@ export function App() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {state.tracks.map(track => (
-                                        <tr key={track.TrackId}>
+
+                                    {state.tracks.map((track, index) => (
+                                        <tr key={track.TrackId} 
+                                        className={`p-3 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}`}>
                                             <td
-                                                className="text-purple-600 font-bold text-center py-4 flex flex-row justify-center content-center items-center"
+                                                className="text-purple-600 font-bold text-center py-4 flex flex-row justify-center content-center items-center "
                                                 onClick={() => setCurrentTrack(track)}
                                             >
                                                 <i className="gg-play-button-o bg-purple-300"></i>
