@@ -61,7 +61,7 @@ export function PlayerComponent() {
     }
 
     return (
-        <div className="w-full h-16 bg-slate-950">
+        <div className="w-full h-20 bg-slate-200 border-t-2 border-t-gray-300 flex flex-col justify-center content-center items-center">
 
             {state.currentTrack && (
                 <div className="text-white px-4 flex flex-row w-full">
@@ -81,14 +81,14 @@ export function PlayerComponent() {
                     </div>
 
                     <div className="flex flex-row items-center ml-4 flex-1">
-                        <img src={state.currentTrack.ImageUrl} className="mt-2 w-12 h-12 bg-gray-200 rounded" alt="Track Thumbnail" />
+                        <img src={state.currentTrack.ImageUrl} className="mt-2 w-12 h-12 bg-slate-400 shadow-lg rounded" alt="Track Thumbnail" />
                         <div className="ml-4 w-full">
                             <div className="w-full flex flex-row">
-                                <div className="flex-1 text-slate-400">{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></div>
+                                <div className="flex-1 text-slate-800">{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></div>
                                 <div className="text-slate-600">{formatTime(state.currentAudio.currentTime)} / {formatTime(state.currentAudio.duration)}</div>
                             </div>
                             
-                            <div className="cursor-pointer h-2 rounded-full w-full bg-gray-100 shadow-xl shadow-blue-500/50" onMouseDown={
+                            <div className="cursor-pointer h-2 rounded-full w-full bg-slate-400 shadow-xl shadow-blue-500/50" onMouseDown={
                                 (e) => {
                                     const rect = e.currentTarget.getBoundingClientRect();
                                     const x = e.clientX - rect.left;

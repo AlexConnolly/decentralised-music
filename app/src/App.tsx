@@ -33,7 +33,7 @@ export function App() {
                             placeholder="Search for music"
                         />
                     </div>
-                    <div className="p-4">
+                    <div className="p-4 flex-1">
                         <div className="bg-white rounded w-full shadow p-4">
                             <table className="w-full">
                                 <thead>
@@ -64,10 +64,11 @@ export function App() {
                             </table>
                         </div>
                     </div>
+                    
+                    <PlayerComponent></PlayerComponent>
                 </div>
             </div>
 
-            <PlayerComponent></PlayerComponent>
         </div>
     );
 }
