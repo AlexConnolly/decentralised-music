@@ -14,13 +14,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Files\example.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Files\Loyle Carner, Jorja Smith - Loose Ends %28Audio%29.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

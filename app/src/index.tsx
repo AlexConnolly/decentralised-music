@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { App } from './App';
 import { TrackProvider } from './providers/TrackContext';
 import { ModalManagerProvider } from './components/core/modal/ModalManagerProvider';
+import "cal-sans";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

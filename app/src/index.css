@@ -8,3 +8,7 @@ body, html, #root {
     height: 100vh;
     width: 100vw;
 }
+
+.font-bold, .font-semibold {
+    font-family: "Cal Sans";
+}

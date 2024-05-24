@@ -148,7 +148,7 @@ export function PlayerComponent() {
                                 </div>
                             </div>
                             
-                            <div className="cursor-pointer h-2 mb-2 rounded-full w-full bg-slate-400 shadow-xl shadow-emerald-500/50" onMouseDown={
+                            <div className="cursor-pointer h-2 mb-4 rounded-full w-full bg-slate-400 shadow-xl shadow-emerald-500/50" onMouseDown={
                                 (e) => {
                                     // Let the user drag the progress bar but also simply click on it to jump to a specific time
                                     const rect = e.currentTarget.getBoundingClientRect();

@@ -11,6 +11,7 @@
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.2",
+    "cal-sans": "^1.0.1",
     "css.gg": "^2.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
