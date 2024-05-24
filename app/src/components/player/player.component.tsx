@@ -33,6 +33,36 @@ export function PlayerComponent() {
                     const audio = new Audio(streamUrl);
                     audio.play();
 
+                    // Update the media session 
+                    if ('mediaSession' in navigator) {
+                        navigator.mediaSession.metadata = new MediaMetadata({
+                            title: track.Title,
+                            artist: track.Artist,
+                            album: track.Album,
+                            artwork: [
+                                { src: track.ImageUrl, sizes: '96x96', type: 'image/png' },
+                                { src: track.ImageUrl, sizes: '128x128', type: 'image/png' },
+                                { src: track.ImageUrl, sizes: '192x192', type: 'image/png' },
+                                { src: track.ImageUrl, sizes: '256x256', type: 'image/png' },
+                                { src: track.ImageUrl, sizes: '384x384', type: 'image/png' },
+                                { src: track.ImageUrl, sizes: '512x512', type: 'image/png' },
+                            ]
+                        });
+
+                        navigator.mediaSession.setActionHandler('play', () => {
+                            audio.play();
+                        });
+
+                        navigator.mediaSession.setActionHandler('pause', () => {
+                            audio.pause();
+                        });
+
+                        navigator.mediaSession.setActionHandler('previoustrack', () => {
+
+                        }
+                        );
+                    }
+
                     return { currentAudio: audio, currentTrack: track };
                 });
             });
