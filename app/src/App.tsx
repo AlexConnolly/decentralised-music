@@ -23,7 +23,7 @@ export function App() {
 
     return (
         <div className="w-full h-full bg-gray-100 flex flex-col">
-            <div className="flex-grow flex flex-col">
+            <div className="h-full flex flex-col">
                 <div className="w-full h-16 bg-slate-950 flex flex-row">
                     <div className="flex-grow px-4 text-white font-bold h-16 bg-slate-900 flex justify-center content-center items-center">
                         <i className="gg-music text-white ml-2 mr-2"></i> decentrify
@@ -40,8 +40,8 @@ export function App() {
                             placeholder="Search for music"
                         />
                     </div>
-                    <div className="flex-grow overflow-hidden">
-                        <div className="bg-white rounded w-full shadow">
+                    <div className="flex-grow">
+                        <div className="bg-white rounded w-full shadow h-full overflow-hidden">
                             <table className="w-full text-slate-600">
                                 <thead>
                                     <tr>
@@ -57,17 +57,26 @@ export function App() {
                                         className={`p-3 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}`} onDoubleClick={() => {
                                             setCurrentTrack(track);
                                         }}>
-                                            <td
-                                                className="ml-2 cursor-pointer text-emerald-800 font-bold text-center py-4 flex flex-row justify-center content-center items-center "
-                                                onClick={() => setCurrentTrack(track)}
-                                            >
-                                                <i className="gg-play-button rounded-full shadow ml-2 bg-emerald-300"></i>
-                                            </td>
                                             <td className="p-3 w-full" onDoubleClick={() => {
                                                 setCurrentTrack(track);
                                             }}>{track.Title}</td>
                                             <td>{track.Artist}</td>
-                                            <td className="p-4">{track.Duration}</td>
+                                            <td className="p-4 text-slate-400">{track.Duration}</td>
+                                            <td
+                                                className="mr-3 cursor-pointer text-emerald-800 font-bold text-center py-4 flex flex-row justify-center content-center items-center "
+                                                onClick={() => setCurrentTrack(track)}
+                                            >
+                                                <div className="flex flex-row">
+                                                    <button className="bg-gray-400 shadow text-white w-8 h-8 mr-3 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center" onClick={() => {
+                                                        
+                                                    }}>
+                                                        <i className="gg-add"></i>
+                                                    </button>
+                                                    <button className="bg-emerald-500 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
+                                                        <i className="gg-play-button"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -86,7 +95,6 @@ export function App() {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
