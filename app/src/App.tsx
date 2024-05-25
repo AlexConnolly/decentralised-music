@@ -34,7 +34,7 @@ export function App() {
                 </div>
             </div>
             <div className="flex-grow bg-gray-100 flex flex-col border-t-4 border-teal-600">
-                <div className="bg-gray-200 w-full shadow-xl p-4">
+                <div className="bg-gray-200 w-full shadow-xl p-4 border-b-2 border-gray-300">
                     <input
                         type="text"
                         className="px-4 h-10 border border-gray-300 rounded-md w-full"
