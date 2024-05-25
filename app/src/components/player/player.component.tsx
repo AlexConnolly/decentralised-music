@@ -95,14 +95,11 @@ export function PlayerComponent() {
 
     const openModal = () => {
       setCurrentModal({
-        title: "Example Modal",
-        content: <div>This is an example modal</div>,
-        button: {
-            text: "Close",
-            onClick: () => {
-                closeCurrentModal();
-            }
-        }
+        title: "Playlists coming soon!",
+        content: <div>
+            <p>Playlists are coming soon to Decentrify!</p>
+            <p>Stay tuned for more updates!</p>
+        </div>
       });
     };
 
