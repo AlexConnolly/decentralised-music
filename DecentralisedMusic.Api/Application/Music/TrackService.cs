@@ -25,7 +25,7 @@ namespace DecentralisedMusic.Api.Application.Music
         private readonly FileSystemWatcher _fileWatcher;
         private bool _isCacheValid; 
         
-        private static readonly Lazy<TrackService> _instance = new Lazy<TrackService>(() => new TrackService("C:\\Users\\AlexConnolly\\Downloads"));
+        private static readonly Lazy<TrackService> _instance = new Lazy<TrackService>(() => new TrackService("C:\\Downloads"));
         
         public static TrackService Instance => _instance.Value;
 
