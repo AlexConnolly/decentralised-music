@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://decentrify.serveo.net/api/music';
+const BASE_URL = 'https://decentrify-api.serveo.net/api/music';
 
 export interface Track {
     TrackId: string;
