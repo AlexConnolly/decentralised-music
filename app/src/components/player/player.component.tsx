@@ -115,8 +115,7 @@ export function PlayerComponent() {
                         {
                             state.currentAudio.paused ? (
                                 <button className="shadow-xl bg-emerald-600 text-white h-10 w-10 rounded-full flex flex-row justify-center content-center items-center" onClick={() => state.currentAudio.play()}>
-                                    <i className="gg-play-button"></i>
-                                    
+                                    <i className="gg-play-button"></i>                                    
                                 </button>
                             ) : (
                                 <button className="shadow-xl bg-emerald-600 text-white h-10 w-10 rounded-full flex flex-row justify-center content-center items-center" onClick={() => state.currentAudio.pause()}>
@@ -128,9 +127,9 @@ export function PlayerComponent() {
 
                     <div className="flex flex-row items-center ml-2 flex-1">
                         <img src={state.currentTrack.ImageUrl} className="hidden mt-2 w-12 h-12 bg-slate-400 shadow-lg rounded" alt="Track Thumbnail" />
-                        <div className="ml-3 w-full">
+                        <div className="ml-2 w-full">
                             <div className="w-full flex flex-row">
-                                <div className="flex-grow text-slate-800">
+                                <div className="flex-grow text-slate-800 mt-4">
                                     <span className="font-semibold">{state.currentTrack.Title || "Unknown"} - <span className="text-slate-600">{state.currentTrack.Artist || "Unknown"}</span></span>
                                     <div className="text-slate-600">{formatTime(state.currentAudio.currentTime)} / {formatTime(state.currentAudio.duration)}</div>
                                 </div>
@@ -141,7 +140,7 @@ export function PlayerComponent() {
                                         }}>
                                             <i className="gg-play-list-add"></i>
                                         </button>
-                                        <button className="bg-emerald-500 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
+                                        <button className="bg-gray-400 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
                                             <i className="gg-heart"></i>
                                         </button>
                                     </div>
@@ -167,6 +166,19 @@ export function PlayerComponent() {
                     </div>
                 </div>
             )}
+
+            {
+                state.currentTrack == null && (
+                    <div className="text-white px-4 flex flex-row w-full">
+                        <div className="flex flex-row items-center ml-2 flex-1">
+                            <div className="flex-grow text-slate-800">
+                                <span className="font-semibold">No track playing</span>
+                                <div className="text-slate-600">Select a track to play</div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     )
 }
