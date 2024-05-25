@@ -9,17 +9,10 @@ namespace DecentralisedMusic.Api.Controllers
     [ApiController]
     public class MusicController : ControllerBase
     {
-        private readonly string _tracksPath = "C:/Downloads";
-
         [HttpGet("{trackId}/stream")]
         public IActionResult StreamTrack(string trackId)
         {
-            var filePath = Path.Combine(_tracksPath, trackId + ".mp3");
-
-            if (!System.IO.File.Exists(filePath))
-            {
-                return NotFound();
-            }
+            string filePath = Application.Music.TrackService.Instance.GetTrackPath(trackId);
 
             var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 

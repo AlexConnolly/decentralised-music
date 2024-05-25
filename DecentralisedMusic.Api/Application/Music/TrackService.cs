@@ -16,6 +16,8 @@ namespace DecentralisedMusic.Api.Application.Music
         public string Duration { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public string Path { get; set; }
     }
 
     public class TrackService
@@ -37,6 +39,19 @@ namespace DecentralisedMusic.Api.Application.Music
             _fileWatcher = new FileSystemWatcher(_tracksPath, "*.mp3");
             _fileWatcher.Created += OnFileCreated;
             _fileWatcher.EnableRaisingEvents = true;
+        }
+
+        public string GetTrackPath(string trackId)
+        {
+            foreach(var track in _tracks)
+            {
+                if(track.TrackId == trackId)
+                {
+                    return track.Path;
+                }
+            }
+
+            return "";
         }
 
         public List<Track> GetTracks()
@@ -72,23 +87,25 @@ namespace DecentralisedMusic.Api.Application.Music
 
                     _tracks.Add(new Track
                     {
-                        TrackId = Path.GetFileNameWithoutExtension(filePath),
+                        TrackId = Guid.NewGuid().ToString(),
                         Title = tag.Title,
                         Album = tag.Album,
                         Artist = tag.Artists,
                         Duration = mp3.Audio.Duration.ToString(@"mm\:ss"),
-                        ImageUrl = await ImageSearchService.GetFirstImageUrlAsync(searchTerm)
+                        ImageUrl = await ImageSearchService.GetFirstImageUrlAsync(searchTerm),
+                        Path = filePath
                     });
                 } else
                 {
                     _tracks.Add(new Track()
                     {
-                        TrackId = Path.GetFileNameWithoutExtension(filePath),
+                        TrackId = Guid.NewGuid().ToString(),
                         Title = Path.GetFileNameWithoutExtension(filePath),
                         Album = "",
                         Artist = "",
                         Duration = mp3.Audio.Duration.ToString(@"mm\:ss"),
-                        ImageUrl = await ImageSearchService.GetFirstImageUrlAsync(Path.GetFileNameWithoutExtension(filePath))
+                        ImageUrl = await ImageSearchService.GetFirstImageUrlAsync(Path.GetFileNameWithoutExtension(filePath)),
+                        Path = filePath
                     });
                 }
             }
