@@ -28,10 +28,22 @@ class MusicApiService {
     }
 
     async getTrackStream(trackId: string): Promise<string> {
+        const cacheName = 'track-stream-cache';
+        const cache = await caches.open(cacheName);
+        const cachedResponse = await cache.match(`${BASE_URL}/${trackId}/stream`);
+
+        if (cachedResponse) {
+            const blob = await cachedResponse.blob();
+            const url = URL.createObjectURL(blob);
+            return url;
+        }
+
         try {
             const response = await axios.get(`${BASE_URL}/${trackId}/stream`, {
                 responseType: 'blob'
             });
+            const responseToCache = new Response(response.data);
+            await cache.put(`${BASE_URL}/${trackId}/stream`, responseToCache);
             const url = URL.createObjectURL(response.data);
             return url;
         } catch (error) {
@@ -41,10 +53,22 @@ class MusicApiService {
     }
 
     async getArtwork(trackId: string): Promise<string> {
+        const cacheName = 'artwork-cache';
+        const cache = await caches.open(cacheName);
+        const cachedResponse = await cache.match(`${BASE_URL}/${trackId}/artwork`);
+
+        if (cachedResponse) {
+            const blob = await cachedResponse.blob();
+            const url = URL.createObjectURL(blob);
+            return url;
+        }
+
         try {
             const response = await axios.get(`${BASE_URL}/${trackId}/artwork`, {
                 responseType: 'blob'
             });
+            const responseToCache = new Response(response.data);
+            await cache.put(`${BASE_URL}/${trackId}/artwork`, responseToCache);
             const url = URL.createObjectURL(response.data);
             return url;
         } catch (error) {
