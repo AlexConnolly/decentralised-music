@@ -24,7 +24,14 @@ export const TrackProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         if(audioRef.current == null) {
             setCurrentTrack(track);
         } else {
-            playlist.current.push(track);
+
+            // Check to see whether current track has completed playing
+            if(audioRef.current.ended) {
+                setCurrentTrack(track);
+            } else {
+                // Add the track to the playlist
+                playlist.current.push(track);
+            }
         }
     }, []);
 
