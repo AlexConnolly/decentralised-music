@@ -33,10 +33,12 @@ export function AlbumRoute() {
                 </div>
 
                 <div className="">
-                    <button className="bg-slate-900 text-white px-4 py-2 rounded-lg" onClick={() => {
+                    <button className="bg-emerald-600 text-center flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
                         // Add all tracks to the playlist
                         addTracksToPlaylist(state.album.Tracks);
-                    }}>Play</button>
+                    }}>
+                        <i className="gg-play-button text-white"></i>
+                    </button>
                 </div>
             </div>
 
