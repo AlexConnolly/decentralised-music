@@ -29,7 +29,7 @@ export function AlbumsRoute() {
             <div className="grid grid-cols-2 gap-4 p-4">
                 {state.albums.map((album, index) => (
                     <div className="bg-white rounded-lg shadow p-4" onClick={() => {
-                        navigate(`/album/${album.AlbumId}`);
+                        navigate(`/albums/${album.AlbumId}`);
                     }}>
                         <h2 className="text-xl font-semibold">{album.Name || "Untitled"}</h2>
                         <p>{album.Artist || "No artist"}</p>
