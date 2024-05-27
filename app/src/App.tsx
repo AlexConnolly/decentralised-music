@@ -26,8 +26,12 @@ export function App() {
                 </div>
             </div>
             <div className="flex-grow bg-gray-100 flex flex-col border-t-4 border-teal-600">
-                <ApplicationRouter></ApplicationRouter>
-                <PlayerComponent></PlayerComponent>
+                <div className="flex-grow overflow-x-scroll" style={{height: "50px"}}>
+                    <ApplicationRouter></ApplicationRouter>
+                </div>
+                <div className="h-44">
+                    <PlayerComponent></PlayerComponent>
+                </div>
             </div>
             {
                 state.isDrawerOpen && (
