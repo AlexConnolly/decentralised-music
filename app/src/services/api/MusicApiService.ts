@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://decentrify-api.serveo.net/api/music';
+var BASE_URL = 'https://decentrify-api.serveo.net/api/music';
+
+// Use localhost BASE_URL for development
+if (window.location.hostname === 'localhost') {
+    BASE_URL = 'https://localhost:7220/api/music';
+}
 
 export interface Track {
     TrackId: string;

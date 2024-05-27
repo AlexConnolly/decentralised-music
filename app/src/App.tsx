@@ -12,7 +12,7 @@ interface AppState {
 }
 
 export function App() {
-    const { setCurrentTrack } = useTrack();
+    const { setCurrentTrack, addTrackToPlaylist } = useTrack();
     const musicApiService = new MusicApiService();
 
     const [state, setState] = React.useState<AppState>({ tracks: [], currentAudio: new Audio(), currentTrack: null, searchQuery: "", filteredTracks: []});
@@ -73,7 +73,7 @@ export function App() {
                                         <td
                                             className="p-3 w-full"
                                             onDoubleClick={() => {
-                                                setCurrentTrack(track);
+
                                             }}
                                         >
                                             {track.Title}
@@ -82,16 +82,19 @@ export function App() {
                                         <td className="p-4 text-slate-400">{track.Duration}</td>
                                         <td
                                             className="mr-3 cursor-pointer text-emerald-800 font-bold text-center py-4 flex flex-row justify-center content-center items-center"
-                                            onClick={() => setCurrentTrack(track)}
                                         >
                                             <div className="flex flex-row">
                                                 <button
                                                     className="bg-gray-400 shadow text-white w-8 h-8 mr-3 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center"
-                                                    onClick={() => {}}
+                                                    onClick={() => {
+                                                        addTrackToPlaylist(track);
+                                                    }}
                                                 >
                                                     <i className="gg-add"></i>
                                                 </button>
-                                                <button className="bg-emerald-500 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center">
+                                                <button className="bg-emerald-500 shadow text-white w-8 h-8 text-center rounded-md shadow-xl flex flex-row justify-center content-center items-center" onClick={() => {
+                                                    setCurrentTrack(track);
+                                                }}>
                                                     <i className="gg-play-button"></i>
                                                 </button>
                                             </div>

@@ -16,56 +16,13 @@ export function PlayerComponent() {
     const [state, setState] = useState<PlayerComponentState>({ currentAudio: new Audio(), currentTrack: null });
 
     const handleTrackChange = useCallback(
-        (track: Track | null) => {
-            if (track == null) {
-                return;
-            }
-
-            musicApiService.getTrackStream(track.TrackId).then(streamUrl => {
-
-                setState((prevState) => {
-
-                    // Kill the previous audio element
-                    prevState.currentAudio.pause();
-                    prevState.currentAudio.src = "";
-
-                    // Create a new audio element
-                    const audio = new Audio(streamUrl);
-                    audio.play();
-
-                    // Update the media session 
-                    if ('mediaSession' in navigator) {
-                        navigator.mediaSession.metadata = new MediaMetadata({
-                            title: track.Title,
-                            artist: track.Artist,
-                            album: track.Album,
-                            artwork: [
-                                { src: track.ImageUrl, sizes: '96x96', type: 'image/png' },
-                                { src: track.ImageUrl, sizes: '128x128', type: 'image/png' },
-                                { src: track.ImageUrl, sizes: '192x192', type: 'image/png' },
-                                { src: track.ImageUrl, sizes: '256x256', type: 'image/png' },
-                                { src: track.ImageUrl, sizes: '384x384', type: 'image/png' },
-                                { src: track.ImageUrl, sizes: '512x512', type: 'image/png' },
-                            ]
-                        });
-
-                        navigator.mediaSession.setActionHandler('play', () => {
-                            audio.play();
-                        });
-
-                        navigator.mediaSession.setActionHandler('pause', () => {
-                            audio.pause();
-                        });
-
-                        navigator.mediaSession.setActionHandler('previoustrack', () => {
-
-                        }
-                        );
-                    }
-
-                    return { currentAudio: audio, currentTrack: track };
+        (track: Track | null, audio: HTMLAudioElement | null) => {
+            if(audio != null) {
+                audio.addEventListener('timeupdate', () => {
+                    setState({ currentAudio: audio, currentTrack: track });
                 });
-            });
+            }
+            setState({ currentAudio: audio!, currentTrack: track });
         },
         [musicApiService]
     );
