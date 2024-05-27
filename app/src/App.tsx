@@ -29,7 +29,7 @@ export function App() {
                 <div className="flex-grow overflow-x-scroll" style={{height: "50px"}}>
                     <ApplicationRouter></ApplicationRouter>
                 </div>
-                <div className="h-44">
+                <div>
                     <PlayerComponent></PlayerComponent>
                 </div>
             </div>
