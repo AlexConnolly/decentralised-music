@@ -5,6 +5,7 @@ export interface Album {
     Name: string;
     Artist: string;
     Tracks: Track[];
+    AlbumId: string;
 }
 
 var BASE_URL = 'https://decentrify-api.serveo.net/api/albums';
