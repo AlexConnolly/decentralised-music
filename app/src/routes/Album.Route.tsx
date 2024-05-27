@@ -14,7 +14,7 @@ export function AlbumRoute() {
 
     const albumApiService = new AlbumApiService();
 
-    const [state, setState] = useState<AlbumRouteState>({ album: { AlbumId: "", Name: "", Artist: "", Tracks: [] } });
+    const [state, setState] = useState<AlbumRouteState>({ album: { AlbumId: "", Name: "", Artist: "", Tracks: [], ImageUrl: "" } });
 
     useEffect(() => {
         albumApiService.getAlbum(albumId!).then((album) => {

@@ -24,6 +24,8 @@ namespace DecentralisedMusic.Api.Application.Music
         public string Name { get; set; }
         public string Artist { get; set; }
         public List<Track> Tracks { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 
     public class TrackService
@@ -99,6 +101,19 @@ namespace DecentralisedMusic.Api.Application.Music
                 if (albumKey == "_")
                     albumKey = "";
 
+                string imageUrl = "";
+
+                if (tag?.Pictures != null && tag.Pictures.Any())
+                {
+                    // Assuming the first picture is the album cover
+                    var picture = tag.Pictures.First();
+                    imageUrl = $"data:{picture.MimeType};base64,{Convert.ToBase64String(picture.PictureData)}";
+                }
+                else
+                {
+                    imageUrl = await ImageSearchService.GetFirstImageUrlAsync(tag?.Title ?? Path.GetFileNameWithoutExtension(filePath));
+                }
+
                 if (!_albums.ContainsKey(albumKey))
                 {
                     _albums[albumKey] = new Album
@@ -106,7 +121,8 @@ namespace DecentralisedMusic.Api.Application.Music
                         AlbumId = Guid.NewGuid().ToString(),
                         Name = albumName,
                         Artist = artistName,
-                        Tracks = new List<Track>()
+                        Tracks = new List<Track>(),
+                        ImageUrl = imageUrl
                     };
                 }
 
@@ -117,7 +133,7 @@ namespace DecentralisedMusic.Api.Application.Music
                     Album = albumName,
                     Artist = artistName,
                     Duration = mp3.Audio.Duration.ToString(@"mm\:ss"),
-                    ImageUrl = await ImageSearchService.GetFirstImageUrlAsync(tag?.Title ?? Path.GetFileNameWithoutExtension(filePath)),
+                    ImageUrl = imageUrl,
                     Path = filePath
                 };
 
