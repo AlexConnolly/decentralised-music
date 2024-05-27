@@ -5,7 +5,7 @@ interface TrackContextProps {
     currentTrack: Track | null;
     setCurrentTrack: (track: Track | null) => void;
     subscribeToTrackChanges: (callback: (track: Track | null, audio: HTMLAudioElement | null) => void) => () => void;
-    addTrackToPlaylist: (track: Track) => void;
+    addTracksToPlaylist: (tracks: Track[]) => void;
 }
 
 const TrackContext = createContext<TrackContextProps | undefined>(undefined);
@@ -19,20 +19,22 @@ export const TrackProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
     const playlist = useRef<Track[]>([]);
 
-    const addTrackToPlaylist = useCallback((track: Track) => {
-        // If there is no track playing, start playing the track, else add it to the playlist using audioRef.current
-        if(audioRef.current == null) {
-            setCurrentTrack(track);
-        } else {
+    const addTracksToPlaylist = useCallback((tracks: Track[]) => {
 
-            // Check to see whether current track has completed playing
-            if(audioRef.current.ended) {
-                setCurrentTrack(track);
-            } else {
-                // Add the track to the playlist
-                playlist.current.push(track);
-            }
+        // Copy the new tracks to avoid modifying the original array
+        tracks = [...tracks];
+
+        var isTrackPlaying = audioRef.current != null && !audioRef.current.paused;
+
+        if(!isTrackPlaying) {
+            setCurrentTrack(tracks[0]);
+
+            // Remove the first track from the array
+            tracks.shift();
         }
+    
+        // Add all new tracks to the playlist
+        playlist.current = [...playlist.current, ...tracks];
     }, []);
 
     const setCurrentTrack = useCallback(async (track: Track | null) => {
@@ -114,7 +116,7 @@ export const TrackProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }, []);
 
     return (
-        <TrackContext.Provider value={{ currentTrack, setCurrentTrack, subscribeToTrackChanges, addTrackToPlaylist }}>
+        <TrackContext.Provider value={{ currentTrack, setCurrentTrack, subscribeToTrackChanges, addTracksToPlaylist }}>
             {children}
         </TrackContext.Provider>
     );

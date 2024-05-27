@@ -1,0 +1,36 @@
+import { useEffect, useState } from "react";
+import { Album, AlbumApiService } from "../services/api/AlbumApiService";
+
+interface AlbumsRouteState {
+    albums: Album[];
+}
+
+export function AlbumsRoute() {
+
+    const albumApiService = new AlbumApiService();
+
+    const [state, setState] = useState<AlbumsRouteState>({ albums: [] });
+
+    useEffect(() => {
+        albumApiService.getAlbumList().then((albums) => {
+            setState({ albums: albums });
+        });
+    }, []);
+
+    return (
+        <div className="h-full">
+            <div className="bg-gray-200 w-full shadow-xl p-4 border-b-2 border-gray-300">
+                <h1 className="text-xl">Albums</h1>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 p-4">
+                {state.albums.map((album, index) => (
+                    <div className="bg-white rounded-lg shadow p-4">
+                        <h2 className="text-xl font-semibold">{album.Name || "Untitled"}</h2>
+                        <p>{album.Artist || "No artist"}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
+}
