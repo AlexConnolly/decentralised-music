@@ -76,6 +76,17 @@ class MusicApiService {
             throw error;
         }
     }
+
+    async hasFileDownloaded(trackId: string): Promise<boolean> {
+        const cacheName = 'track-stream-cache';
+        const cache = await caches.open(cacheName);
+        const cachedResponse = await cache.match(`${BASE_URL}/${trackId}/stream`);
+        return cachedResponse != null;
+    }
+
+    async downloadTrack(trackId: string): Promise<void> {
+        await this.getTrackStream(trackId); // This will cache the track
+    }
 }
 
 export default MusicApiService;

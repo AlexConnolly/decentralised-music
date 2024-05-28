@@ -6,15 +6,18 @@ import { App } from './App';
 import { TrackProvider } from './providers/TrackContext';
 import { ModalManagerProvider } from './components/core/modal/ModalManagerProvider';
 import "cal-sans";
+import { DownloadProvider } from './providers/DownloadContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <ModalManagerProvider>
-  <TrackProvider>
-        <App />
-    </TrackProvider>
+    <DownloadProvider>
+      <TrackProvider>
+            <App />
+        </TrackProvider>
+    </DownloadProvider>
   </ModalManagerProvider>
   
 );

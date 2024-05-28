@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { Album, AlbumApiService } from "../services/api/AlbumApiService";
 import { useEffect, useState } from "react";
 import { useTrack } from "../providers/TrackContext";
+import { useDownload } from "../providers/DownloadContext";
 
 interface AlbumRouteState {
     album: Album;
@@ -15,6 +16,19 @@ export function AlbumRoute() {
     const albumApiService = new AlbumApiService();
 
     const [state, setState] = useState<AlbumRouteState>({ album: { AlbumId: "", Name: "", Artist: "", Tracks: [], ImageUrl: "" } });
+
+    const { downloadingQueue, progress, addTracksToDownloadQueue, hasFileDownloaded } = useDownload();
+
+    const handleDownloadClick = async (tracks: string[]) => {
+
+        // Get all tracks that are not downloaded
+        const tracksToDownload = tracks.filter(async (trackId) => {
+            return await hasFileDownloaded(trackId);
+        });
+
+        // Add tracks to the download queue
+        addTracksToDownloadQueue(tracksToDownload);
+    };
 
     useEffect(() => {
         albumApiService.getAlbum(albumId!).then((album) => {
@@ -32,7 +46,14 @@ export function AlbumRoute() {
                     <p>{state.album.Artist || "No artist"}</p>
                 </div>
 
-                <div className="">
+                <div className="flex flex-row">
+
+                    <button className="bg-slate-600 text-center mr-2 flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
+                        handleDownloadClick(state.album.Tracks.map(track => track.TrackId));
+                    }}>
+                        <i className="gg-software-download text-white"></i>
+                    </button>
+
                     <button className="bg-emerald-600 text-center flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
                         // Add all tracks to the playlist
                         addTracksToPlaylist(state.album.Tracks);
