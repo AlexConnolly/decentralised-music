@@ -28,10 +28,10 @@ export function AlbumsRoute() {
 
             <div className={"grid sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4"}>
                 {state.albums.map((album, index) => (
-                    <div className="bg-white rounded-lg flex flex-col items-center content-center justify-center shadow" onClick={() => {
+                    <div className="bg-white rounded-lg shadow" onClick={() => {
                         navigate(`/albums/${album.AlbumId}`);
                     }}>
-                        <img src={album.ImageUrl} className="w-full h-32 rounded-lg bg-gray-100 aspect-video border-0" />
+                        <img src={album.ImageUrl} className="w-full rounded-lg bg-gray-100 aspect-video border-0" />
 
                         <div className="p-4">
                             <h2 className="text-xl font-semibold">{album.Name || "Untitled"}</h2>

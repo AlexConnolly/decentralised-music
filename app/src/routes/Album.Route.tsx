@@ -65,15 +65,11 @@ export function AlbumRoute() {
                 </div>
 
                 <div className="flex flex-row">
-                    {
-                        !state.hasDownloaded && (
-                            <button className="bg-emerald-600 text-center mr-2 flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
+                <button className="bg-emerald-600 text-center mr-2 flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
                                 handleDownloadClick(state.album.Tracks.map(track => track.TrackId));
                             }}>
                                 <i className="gg-software-download text-white"></i>
                             </button>
-                        )
-                    }
 
                     <button className="bg-emerald-600 text-center flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
                         // Add all tracks to the playlist
