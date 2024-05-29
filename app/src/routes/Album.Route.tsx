@@ -3,9 +3,11 @@ import { Album, AlbumApiService } from "../services/api/AlbumApiService";
 import { useEffect, useState, useMemo } from "react";
 import { useTrack } from "../providers/TrackContext";
 import { useDownload } from "../providers/DownloadContext";
+import MusicApiService from "../services/api/MusicApiService";
 
 interface AlbumRouteState {
     album: Album;
+    hasDownloaded: boolean;
 }
 
 export function AlbumRoute() {
@@ -14,8 +16,9 @@ export function AlbumRoute() {
     const { albumId } = useParams();
 
     const albumApiService = new AlbumApiService();
+    const musicApiService = new MusicApiService();
 
-    const [state, setState] = useState<AlbumRouteState>({ album: { AlbumId: "", Name: "", Artist: "", Tracks: [], ImageUrl: "" } });
+    const [state, setState] = useState<AlbumRouteState>({ album: { AlbumId: "", Name: "", Artist: "", Tracks: [], ImageUrl: "" }, hasDownloaded: false});
 
     const { downloadingQueue, progress, addTracksToDownloadQueue, hasFileDownloaded } = useDownload();
 
@@ -33,7 +36,8 @@ export function AlbumRoute() {
 
     useEffect(() => {
         albumApiService.getAlbum(albumId!).then((album) => {
-            setState({ album: album });
+            var hasDownloaded = albumApiService.hasAlbumDownloaded(album.Tracks.map(track => track.TrackId));
+            setState({ album: album, hasDownloaded: hasDownloaded});
         });
     }, [albumId]);
     
@@ -46,6 +50,12 @@ export function AlbumRoute() {
         return totalTracks > 0 ? (downloadedTracks / totalTracks) * 100 : 0;
     }, [state.album.Tracks, progress]);
 
+    useEffect(() => {
+        if(albumApiService.hasAlbumDownloaded(state.album.Tracks.map(track => track.TrackId))) {
+            setState({ album: state.album, hasDownloaded: true});
+        }
+    }, [downloadingQueue]);
+
     return (
         <div className="h-full">
             <div className="bg-gray-200 w-full shadow-xl p-4 border-b-2 border-gray-300 flex flex-row">
@@ -55,11 +65,15 @@ export function AlbumRoute() {
                 </div>
 
                 <div className="flex flex-row">
-                    <button className="bg-slate-600 text-center mr-2 flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
-                        handleDownloadClick(state.album.Tracks.map(track => track.TrackId));
-                    }}>
-                        <i className="gg-software-download text-white"></i>
-                    </button>
+                    {
+                        !state.hasDownloaded && (
+                            <button className="bg-emerald-600 text-center mr-2 flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
+                                handleDownloadClick(state.album.Tracks.map(track => track.TrackId));
+                            }}>
+                                <i className="gg-software-download text-white"></i>
+                            </button>
+                        )
+                    }
 
                     <button className="bg-emerald-600 text-center flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
                         // Add all tracks to the playlist

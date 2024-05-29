@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Track } from './MusicApiService';
+import MusicApiService, { Track } from './MusicApiService';
 
 export interface Album {
     Name: string;
@@ -15,6 +15,8 @@ var BASE_URL = 'https://decentrify-api.serveo.net/api/albums';
 if (window.location.hostname === 'localhost') {
     BASE_URL = 'https://localhost:7220/api/albums';
 }
+
+const musicApiService = new MusicApiService();
 
 export class AlbumApiService {
     async getAlbumList(): Promise<Album[]> {
@@ -35,5 +37,9 @@ export class AlbumApiService {
             console.error('Error fetching album', error);
             throw error;
         }
+    }
+
+    hasAlbumDownloaded(tracks: string[]): boolean {
+        return tracks.every(track => musicApiService.hasFileDownloaded(track));
     }
 }
