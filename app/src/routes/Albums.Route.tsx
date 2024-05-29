@@ -26,17 +26,17 @@ export function AlbumsRoute() {
                 <h1 className="text-xl">Albums</h1>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 p-4">
+            <div className={"grid sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4"}>
                 {state.albums.map((album, index) => (
-                    <div className="bg-white rounded-lg flex flex-col items-center content-center justify-center shadow p-4" onClick={() => {
+                    <div className="bg-white rounded-lg flex flex-col items-center content-center justify-center shadow" onClick={() => {
                         navigate(`/albums/${album.AlbumId}`);
-                    }} style={{
-                        backgroundImage: `url(${album.ImageUrl})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center"
                     }}>
-                        <h2 className="text-xl font-semibold">{album.Name || "Untitled"}</h2>
-                        <p>{album.Artist || "No artist"}</p>
+                        <img src={album.ImageUrl} className="w-full h-32 rounded-lg bg-gray-100 aspect-video border-0" />
+
+                        <div className="p-4">
+                            <h2 className="text-xl font-semibold">{album.Name || "Untitled"}</h2>
+                            <p>{album.Artist || "No artist"}</p>
+                        </div>
                     </div>
                 ))}
             </div>
