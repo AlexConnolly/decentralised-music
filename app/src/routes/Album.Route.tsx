@@ -65,7 +65,7 @@ export function AlbumRoute() {
                 </div>
 
                 <div className="flex flex-row">
-                <button className="bg-emerald-600 text-center mr-2 flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
+                <button className="bg-gray-400 text-center mr-2 flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-full" onClick={() => {
                                 handleDownloadClick(state.album.Tracks.map(track => track.TrackId));
                             }}>
                                 <i className="gg-software-download text-white"></i>
@@ -87,8 +87,22 @@ export function AlbumRoute() {
                     </div>
                 )}
                 {state.album.Tracks.map((track, index) => (
-                    <div key={track.TrackId} className="bg-white p-4 mb-2 shadow rounded-lg">
+                    <div key={track.TrackId} className="bg-white p-4 mb-2 shadow rounded-lg flex flex-row">
+                        <div className="flex flex-grow flex-col justify-center  content-center">
                         <h2>{(index + 1) + ". " + track.Title}</h2>
+                        </div>
+                        <div className="flex flex-row">
+                            <button className="bg-gray-400 mr-2 text-center flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-lg" onClick={() => {
+                                handleDownloadClick([track.TrackId]);
+                            }}>
+                                <i className="gg-software-download text-white"></i>
+                            </button>
+                            <button className="bg-emerald-600 text-center flex flex-row justify-center items-center content-center text-white w-10 h-10 text-2xl rounded-lg" onClick={() => {
+                                setCurrentTrack(track);
+                            }}>
+                                <i className="gg-play-button text-white"></i>
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import MusicApiService, { Track } from "../../services/api/MusicApiService";
 import { useTrack } from "../../providers/TrackContext";
 import { useModal } from "../core/modal/ModalManagerProvider";
+import { useDownload } from "../../providers/DownloadContext";
 
 interface PlayerComponentState {
     currentAudio: HTMLAudioElement;
@@ -50,6 +51,8 @@ export function PlayerComponent() {
 
     const { setCurrentModal, closeCurrentModal } = useModal();
 
+    const { downloadingQueue, progress, addTracksToDownloadQueue, hasFileDownloaded } = useDownload();
+
     const openModal = () => {
       setCurrentModal({
         title: "Playlists coming soon!",
@@ -62,7 +65,6 @@ export function PlayerComponent() {
 
     return (
         <div className="w-full h-24 bg-slate-200 border-t-2 border-t-gray-300 flex flex-col justify-center content-center items-center">
-
             {state.currentTrack && (
                 <div className="text-white px-4 flex flex-row w-full">
                     <div className="flex flex-col justify-center content-center items-center">
